@@ -6,9 +6,11 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 )
+
 
 // ========== 返回给前端的结构 ==========
 
@@ -82,9 +84,18 @@ func main() {
 	http.Handle("/", fs)
 	http.HandleFunc("/api/weather", handleWeather)
 
-	fmt.Println("服务器启动于 http://localhost:80")
-	log.Fatal(http.ListenAndServe(":80", nil))
+	// 检查是否有 TLS 证书，有则启动 HTTPS，否则回退 HTTP
+	certFile := "cert.pem"
+	keyFile := "key.pem"
+	if _, err := os.Stat(certFile); err == nil {
+		log.Println("检测到证书文件，以 HTTPS 模式启动（:443）")
+		log.Fatal(http.ListenAndServeTLS(":443", certFile, keyFile, nil))
+	} else {
+		log.Println("未找到证书，以 HTTP 模式启动（:80）")
+		log.Fatal(http.ListenAndServe(":80", nil))
+	}
 }
+
 
 func handleWeather(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
