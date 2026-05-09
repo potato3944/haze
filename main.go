@@ -82,8 +82,8 @@ func main() {
 	http.Handle("/", fs)
 	http.HandleFunc("/api/weather", handleWeather)
 
-	fmt.Println("服务器启动于 http://localhost:3000")
-	log.Fatal(http.ListenAndServe(":3000", nil))
+	fmt.Println("服务器启动于 http://localhost:80")
+	log.Fatal(http.ListenAndServe(":80", nil))
 }
 
 func handleWeather(w http.ResponseWriter, r *http.Request) {
