@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>雾霾探测系统 - 您的出行守护者</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/dist/css/all.min.css">
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header: Location Section -->
+        <header id="app-header">
+            <div class="location-container">
+                <i class="fas fa-location-dot"></i>
+                <span id="city-name">定位中...</span>
+                <button id="refresh-btn" title="重新定位"><i class="fas fa-location-crosshairs"></i></button>
+            </div>
+            <div class="date-container">
+                <span id="current-date"></span>
+            </div>
+        </header>
+
+        <!-- Body: Dynamic Content -->
+        <main id="app-body">
+            <!-- Weather Summary Card -->
+            <section class="card glass weather-card">
+                <div class="weather-main">
+                    <div class="temp-display">
+                        <span id="temp-value">--</span><span class="unit">°C</span>
+                    </div>
+                    <div class="weather-info">
+                        <div id="weather-desc">加载中...</div>
+                        <div id="humidity-info">湿度: --%</div>
+                    </div>
+                </div>
+                <div class="weather-icon-large">
+                    <i id="main-icon" class="fas fa-cloud-sun"></i>
+                </div>
+            </section>
+
+            <!-- AQI Indicator -->
+            <section class="card glass aqi-card">
+                <div class="aqi-header">
+                    <h3>空气质量指数 (AQI)</h3>
+                    <span id="aqi-status" class="status-badge">--</span>
+                </div>
+                <div class="aqi-value-container">
+                    <h1 id="aqi-value">--</h1>
+                </div>
+                <div class="aqi-meter">
+                    <div id="aqi-bar" class="meter-fill"></div>
+                </div>
+                <p id="health-advice">正在获取健康建议...</p>
+            </section>
+
+            <!-- Charts Section -->
+            <section class="card glass chart-card">
+                <h3>24小时趋势 (温度与湿度)</h3>
+                <div class="chart-container">
+                    <canvas id="weatherChart"></canvas>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer / Action Tips -->
+        <footer id="app-footer">
+            <div class="tip-card">
+                <i class="fas fa-mask"></i>
+                <p id="action-tip">请稍等，正在获取最新环境数据...</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
