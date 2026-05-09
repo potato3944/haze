@@ -88,11 +88,11 @@ func main() {
 	certFile := "cert.pem"
 	keyFile := "key.pem"
 	if _, err := os.Stat(certFile); err == nil {
-		log.Println("检测到证书文件，以 HTTPS 模式启动（:443）")
-		log.Fatal(http.ListenAndServeTLS(":443", certFile, keyFile, nil))
+		log.Println("检测到证书文件，以 HTTPS 模式启动（:8443）")
+		log.Fatal(http.ListenAndServeTLS(":8443", certFile, keyFile, nil))
 	} else {
-		log.Println("未找到证书，以 HTTP 模式启动（:80）")
-		log.Fatal(http.ListenAndServe(":80", nil))
+		log.Println("未找到证书，以 HTTP 模式启动（:8080）")
+		log.Fatal(http.ListenAndServe(":8080", nil))
 	}
 }
 
