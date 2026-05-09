@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>雾霾探测系统 - 您的出行守护者</title>
+    <!-- PWA 配置 -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="/icon-192.png">
+    <!-- 样式 -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/dist/css/all.min.css">
     <!-- Chart.js for data visualization -->
@@ -75,5 +83,15 @@
     </div>
 
     <script src="app.js"></script>
+    <!-- 注册 PWA Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('SW 注册成功:', reg.scope))
+                    .catch(err => console.warn('SW 注册失败:', err));
+            });
+        }
+    </script>
 </body>
 </html>
