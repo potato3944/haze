@@ -81,7 +81,13 @@ var weatherCodeMap = map[int]string{
 
 func main() {
 	fs := http.FileServer(http.Dir("./public"))
-	http.Handle("/", fs)
+	// 给 manifest.json 设置正确的 Content-Type，Chrome 安装 PWA 时强制要求
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path == "/manifest.json" {
+			w.Header().Set("Content-Type", "application/manifest+json")
+		}
+		fs.ServeHTTP(w, r)
+	})
 	http.HandleFunc("/api/weather", handleWeather)
 
 	// 检查是否有 TLS 证书，有则启动 HTTPS，否则回退 HTTP
